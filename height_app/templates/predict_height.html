@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block alert %}
+{% if alert_msg %}
+<div class="alert alert-{{ alert_msg.type }}" role="alert">
+  {{ alert_msg.msg }}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block title  %}
+Predict Height
+{% endblock  %}
+
+{% block lead  %}
+To Predict press the button
+<br>
+model used : multiple Regression model
+{% endblock  %}
+
+{% block main_body  %}
+
+<form method="POST" action="/api/predict">
+  <div class="form-group">
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Weight</label>
+      <input type="number" name="weight" style="margin-bottom:15px" class="col-md-3" placeholder="input weight">
+    </div>
+    <label for="exampleFormControlSelect1">Father Height</label>
+    <input type="number" name="father_height" style="margin-bottom:15px" class="col-md-3" placeholder="input father height">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Mother Height</label>
+    <input type="number" name="mother_height" style="margin-bottom:15px" class="col-md-3" placeholder="input mother height">
+  </div>
+  <input type="submit" class="btn btn-primary" value="Predict" />
+</form>
+
+{% if prediction %}
+<br>
+
+<div class="card">
+  <div class="card-header">
+    Predicted Height
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ '{:.2f} cm'.format(prediction[0]) }}</h5>
+    <p class="card-text">Weight : {{data['weight']}}, Father_Height : {{ data['father_height'] }}, Mother_Height : {{ data['mother_height'] }}</p>
+    <p>model used : multiple Regression model</p>
+  </div>
+</div>
+{% endif %}
+
+{% endblock  %}
