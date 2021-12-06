@@ -74,7 +74,7 @@ def delete_user(user_id=None):
 
     user_model.delete_user(user_id)
 
-    return redirect(url_for('main.user_index', msg_code=3), code=200)
+    return redirect(url_for('main.user_index', msg_code=3))
 
 @bp.route('/update', methods=['POST'])
 def update_user():
