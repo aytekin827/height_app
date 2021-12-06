@@ -4,8 +4,8 @@ from flask_migrate import Migrate
 
 # app controller part
 
-db = SQLAlchemy()
 migrate = Migrate()
+db = SQLAlchemy()
 
 def create_app():
     """
@@ -13,14 +13,8 @@ def create_app():
     """
     app = Flask(__name__)
 
-    # db Postgresql에 연결하는부분
-    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:1234@localhost:5433/height"
-    
+    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:1234@localhost:5433/worldcup"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['DEBUG'] = True
-
-    db.init_app(app)
-    migrate.init_app(app,db)
 
     from height_app.routes import main_route,users_route
     app.register_blueprint(main_route.bp)
@@ -30,4 +24,3 @@ def create_app():
 
 if __name__ == '__main__':
     app = create_app()
-    app.run(debug=True)
